@@ -27,3 +27,12 @@ instantly updated.
 The project aims to reduce difficulties in maintaining a lists of all the events, continuously
 updating them and changing them manually in an organised manner, thus making the process
 less stressful and data more accessible.
+
+![image](https://github.com/user-attachments/assets/505fe155-998a-4b76-8c7a-28ce492dbc64)
+
+![image](https://github.com/user-attachments/assets/3e325c68-a6e2-4bf1-81bd-ba6ec021d5ef)
+
+![image](https://github.com/user-attachments/assets/07df99fc-1f21-42a6-b117-70b5c6e96408)
+
+![image](https://github.com/user-attachments/assets/65c6fad0-017f-4c29-843f-38a778cfb1c1)
+
