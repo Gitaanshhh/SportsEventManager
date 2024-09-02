@@ -28,11 +28,12 @@ The project aims to reduce difficulties in maintaining a lists of all the events
 updating them and changing them manually in an organised manner, thus making the process
 less stressful and data more accessible.
 
-![image](https://github.com/user-attachments/assets/505fe155-998a-4b76-8c7a-28ce492dbc64)
+![Screenshot 2024-09-02 164226](https://github.com/user-attachments/assets/d412db22-1483-45b1-a18f-c55f3977aeec)
 
-![image](https://github.com/user-attachments/assets/3e325c68-a6e2-4bf1-81bd-ba6ec021d5ef)
+![Screenshot 2024-09-02 164155](https://github.com/user-attachments/assets/3a03c232-2831-47ce-a95e-3d73871253f7)
 
-![image](https://github.com/user-attachments/assets/07df99fc-1f21-42a6-b117-70b5c6e96408)
+![Screenshot 2024-09-02 164130](https://github.com/user-attachments/assets/e94216e4-fba3-4de6-b38e-a2243f07c1e7)
 
-![image](https://github.com/user-attachments/assets/65c6fad0-017f-4c29-843f-38a778cfb1c1)
+![Screenshot 2024-09-02 164039](https://github.com/user-attachments/assets/dd4e3bc7-4757-4464-9865-2d2120671f4d)
+
 
