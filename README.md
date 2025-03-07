@@ -28,8 +28,6 @@ The project aims to reduce difficulties in maintaining a lists of all the events
 updating them and changing them manually in an organised manner, thus making the process
 less stressful and data more accessible.
 
-### Why Python with MySQL? 🚀  
-
 This project uses **Python with MySQL** for its **simplicity, scalability, and strong ecosystem support**. Python’s clean syntax and extensive libraries streamline database interactions, while MySQL ensures **efficient data management and high performance**. With robust security features, cross-platform compatibility, and seamless integration with **data analysis, machine learning, and web frameworks**, this combination offers the perfect balance between flexibility and reliability. Whether for **small applications or large-scale deployments**, Python and MySQL provide a solid foundation for building secure, scalable, and maintainable systems.
 
 ![Screenshot 2024-09-02 164226](https://github.com/user-attachments/assets/d412db22-1483-45b1-a18f-c55f3977aeec)
