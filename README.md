@@ -39,3 +39,9 @@ This project uses **Python with MySQL** for its **simplicity, scalability, and s
 ![Screenshot 2024-09-02 164039](https://github.com/user-attachments/assets/dd4e3bc7-4757-4464-9865-2d2120671f4d)
 
 
+# Requirements 
+Python
+    mysql-connector-python
+    tkinter
+    tkcalendar
+MySQL
