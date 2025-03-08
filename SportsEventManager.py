@@ -25,6 +25,7 @@ ACCESS = False
 """
 DATABASE CONNECTIVITY
 """
+
 def ConnectToSQL():
     """
     Establish a connection to MySQL database
@@ -369,34 +370,26 @@ def Score():
     Label(scoreWindow, text='CEDAR').grid(row=1, column=4)
     Label(scoreWindow, text=cedar).grid(row=2, column=4)
 
-def MainFrame(task):
+def EventSearch(task):
     """
-    Creates a login frame for access control.
+    Window for to search for an event, used in editing and updating events
     """
-    frame = Toplevel()
-    frame.minsize(400, 300)
+    editUpdateWindow = Toplevel()
+    editUpdateWindow.title('Edit/Update')
+    editUpdateWindow.minsize(400, 400)
+    CATEG = StringVar()
+    GENDER = StringVar()
+    
+    dropCAT = OptionMenu(editUpdateWindow, CATEG, 'U19', 'U17', 'U14', 'U12')
+    dropGEN = OptionMenu(editUpdateWindow, GENDER, 'M', 'F')
+    
+    dropCAT.grid(row=1, column=1)
+    dropGEN.grid(row=2, column=1)
+    
+    Button(editUpdateWindow, text='Search', padx=6, pady=10, 
+            command=lambda: Search(CATEG, GENDER, editUpdateWindow, task)).grid(row=4, column=1)
+    return
 
-    def Login(x):
-        """
-        Checks login credentials.
-        """
-        global ACCESS
-        if x in passwords.keys() and epw.get() == passwords[x]:
-            ACCESS = True
-            if task == 'Update':
-                Search(category, gender, frame, 'Update')
-            elif task == 'Edit':
-                Search(category, gender, frame, 'Edit')
-            frame.destroy()
-
-    Label(frame, text='Enter password to access').grid(row=1, column=2)
-    epw = Entry(frame)
-    epw.grid(row=2, column=2)
-
-    house = StringVar()
-    drop = OptionMenu(frame, house, *passwords.keys())
-    drop.grid(row=2, column=3)
-    Button(frame, text='Submit', padx=6, pady=10, command=lambda: Login(house.get())).grid(row=2, column=4)
 
 def ResetAll():
     """
@@ -475,11 +468,12 @@ def Start(win, ACCESS):
     # Only PT (admin) gets access to these features
     if ACCESS == 'PT':
         Button(win, text='New Event', padx=6, pady=10, command=GetEvent).grid(row=3, column=0)
-        Button(win, text='Edit Event', padx=6, pady=10, command=lambda: MainFrame('Edit')).grid(row=4, column=0)
-        Button(win, text='Update Event', padx=6, pady=10, command=lambda: MainFrame('Update')).grid(row=5, column=0)
+        Button(win, text='Edit Event', padx=6, pady=10, command=lambda: EventSearch('Edit')).grid(row=4, column=0)
+        Button(win, text='Update Event', padx=6, pady=10, command=lambda: EventSearch('Update')).grid(row=5, column=0)
         Button(win, text='RESET ALL', padx=6, pady=10, command=ResetAll).grid(row=6, column=0)
 
 def CheckPassword(user):
+    global ACCESS
     if password.get() == passwords[user]:
         ACCESS = user
         Start(mainWindow, ACCESS)
