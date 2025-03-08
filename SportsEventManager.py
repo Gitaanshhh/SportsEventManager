@@ -1,18 +1,26 @@
 """
-Imports
-
 Functions -> Pascal case -> Eg - ThisIsAFunction
 Variables -> Camel case -> Eg - thisIsAVariable
 Classes - Pascal
 Objects - Camel case
+"""
 
+"""
+Imports
 """
 import mysql.connector as sql   # Database connectivity
 from tkinter import *   # GUI
 from PIL import ImageTk, Image  # Handling Images
 from tkcalendar import DateEntry    # Calender widget for Date selection
 
+"""
+Access Control
+"""
+
+users = ['PT', 'Maple', 'Pine', 'Oak', 'Cedar']
+passwords = {'PT': 'pt', 'Maple': 'maple', 'Pine': 'pine', 'Oak': 'oak', 'Cedar': 'cedar'}
 ACCESS = False
+
 
 """
 DATABASE CONNECTIVITY
@@ -25,7 +33,7 @@ def ConnectToSQL():
         cursor : Cursor object
     """
     global connection, cursor
-    connection = sql.connect(host='localhost', user='root', passwd='rootpw')
+    connection = sql.connect(host='localhost', user='root', passwd='Gitaansh1234')
     cursor = connection.cursor()
     cursor.execute("USE Git;")
     return connection, cursor
@@ -65,15 +73,10 @@ CreateTable('U12F')
 connection.commit()
 connection.close()
 
-# Passwords for access control
-passwords = {'PT': 'pt', 'Maple': 'maple', 'Pine': 'pine', 'Oak': 'oak', 'Cedar': 'cedar'}
 
 """
 GUI PART
 """
-mainWindow = Tk()
-mainWindow.title('Sports Event Manager')
-mainWindow.minsize(800, 600)
 
 def Forget(widget):
     """
@@ -315,9 +318,9 @@ def Score():
     """
     Calculates and displays scores for each house (faction)
     """
-    window = Toplevel()
-    window.title('SCORE')
-    window.minsize(400, 400)
+    scoreWindow = Toplevel()
+    scoreWindow.title('SCORE')
+    scoreWindow.minsize(400, 400)
 
     def Count(a):
         connection, cursor = ConnectToSQL()
@@ -354,17 +357,17 @@ def Score():
     pine = Count('Pine')
     cedar = Count('Cedar')
 
-    Label(window, text='MAPLE').grid(row=1, column=1)
-    Label(window, text=maple).grid(row=2, column=1)
+    Label(scoreWindow, text='MAPLE').grid(row=1, column=1)
+    Label(scoreWindow, text=maple).grid(row=2, column=1)
 
-    Label(window, text='OAK').grid(row=1, column=2)
-    Label(window, text=oak).grid(row=2, column=2)
+    Label(scoreWindow, text='OAK').grid(row=1, column=2)
+    Label(scoreWindow, text=oak).grid(row=2, column=2)
 
-    Label(window, text='PINE').grid(row=1, column=3)
-    Label(window, text=pine).grid(row=2, column=3)
+    Label(scoreWindow, text='PINE').grid(row=1, column=3)
+    Label(scoreWindow, text=pine).grid(row=2, column=3)
 
-    Label(window, text='CEDAR').grid(row=1, column=4)
-    Label(window, text=cedar).grid(row=2, column=4)
+    Label(scoreWindow, text='CEDAR').grid(row=1, column=4)
+    Label(scoreWindow, text=cedar).grid(row=2, column=4)
 
 def MainFrame(task):
     """
@@ -381,9 +384,9 @@ def MainFrame(task):
         if x in passwords.keys() and epw.get() == passwords[x]:
             ACCESS = True
             if task == 'Update':
-                Search(cat, gen, frame, 'Update')
+                Search(category, gender, frame, 'Update')
             elif task == 'Edit':
-                Search(cat, gen, frame, 'Edit')
+                Search(category, gender, frame, 'Edit')
             frame.destroy()
 
     Label(frame, text='Enter password to access').grid(row=1, column=2)
@@ -399,15 +402,15 @@ def ResetAll():
     """
     Resets all events by deleting them from the database
     """
-    window = Toplevel()
-    window.title('RESET ALL : ')
-    window.minsize(600, 500)
+    ResetWindow = Toplevel()
+    ResetWindow.title('RESET ALL : ')
+    ResetWindow.minsize(600, 500)
 
     def ClearTable(x):
-        conn, c = ConnectToSQL()
-        c.execute(f"DELETE FROM {x.get()};")
-        conn.commit()
-        conn.close()
+        connection, cursor = ConnectToSQL()
+        cursor.execute(f"DELETE FROM {x.get()};")
+        connection.commit()
+        connection.close()
 
     global I, II, III, IV
     I = StringVar()
@@ -419,43 +422,68 @@ def ResetAll():
 
     houselist = ['Maple', 'Oak', 'Pine', 'Cedar']
 
-    OptionMenu(window, CAT, 'U19', 'U17', 'U14', 'U12').grid(row=2, column=2)
-    OptionMenu(window, GEN, 'M', 'F').grid(row=2, column=3)
+    OptionMenu(ResetWindow, CAT, 'U19', 'U17', 'U14', 'U12').grid(row=2, column=2)
+    OptionMenu(ResetWindow, GEN, 'M', 'F').grid(row=2, column=3)
 
-    Button(window, text='RESET ALL', padx=20, pady=10, command=lambda: ClearTable(CAT)).grid(row=2, column=5)
+    Button(ResetWindow, text='RESET ALL', padx=20, pady=10, command=lambda: ClearTable(CAT)).grid(row=2, column=5)
 
-cat = StringVar()
-gen = StringVar()
-Button(mainWindow, text='New Event', padx=10, pady=6, command=GetEvent).grid(row=2, column=2)
-Button(mainWindow, text='View Event', padx=10, pady=6, command=DisplayEvent).grid(row=2, column=3)
-Button(mainWindow, text='Edit Event', padx=10, pady=6, command=lambda: MainFrame('Edit')).grid(row=2, column=5)
-Button(mainWindow, text='Update Event', padx=10, pady=6, command=lambda: MainFrame('Update')).grid(row=2, column=7)
-Button(mainWindow, text='RESET ALL', padx=10, pady=6, command=ResetAll).grid(row=2, column=9)
+"""
+Main Window Setup
+"""
 
-users = ['PT', 'Maple', 'Pine', 'Oak', 'Cedar']
+mainWindow = Tk()
+mainWindow.title('Sports Event Manager')
+mainWindow.minsize(800, 600)
+
+category = StringVar()
+gender = StringVar()
 user = StringVar()
 
-drop = OptionMenu(mainWindow, user, *users)
-drop.pack(padx=15, pady=8)
-password = Label(mainWindow, text='Password').pack()
-password = Entry(mainWindow)
-password.pack(padx=15, pady=8)
+loginFrame = Frame(mainWindow)
+loginFrame.place(relx=0.5, rely=0.5, anchor=CENTER)
+
+title_label = Label(loginFrame, text="Sports Event Manager", font=("Arial", 16, "bold"))
+title_label.grid(row=0, column=0, columnspan=2, pady=20)
+
+user_label = Label(loginFrame, text="User:")
+user_label.grid(row=1, column=0, padx=10, pady=5, sticky='e')
+
+user = StringVar()
+drop = OptionMenu(loginFrame, user, *users)
+drop.grid(row=1, column=1, padx=10, pady=5, sticky='w')
+
+password_label = Label(loginFrame, text="Password:")
+password_label.grid(row=2, column=0, padx=10, pady=5, sticky='e')
+
+password = Entry(loginFrame, show="*")  # Hide password with asterisks
+password.grid(row=2, column=1, padx=10, pady=5, sticky='w')
+
+login_button = Button(loginFrame, text='Login', width=20, command=lambda: CheckPassword(user.get()))
+login_button.grid(row=3, column=0, columnspan=2, pady=20)
+
 
 def Start(win, ACCESS):
     win.destroy()
     win = Tk()
     win.title('Sports Event Manager')
     win.minsize(800, 600)
-    b = Button(win, text='Events', padx=6, pady=10, command=lambda: Event(ACCESS))
-    b.grid(row=0, column=0)
-    b = Button(win, text='Score', padx=6, pady=10, command=Score)
-    b.grid(row=1, column=0)
+
+    # All users can view events and scores
+    Button(win, text='Score', padx=6, pady=10, command=Score).grid(row=1, column=0)
+    Button(win, text='View Events', padx=6, pady=10, command=DisplayEvent).grid(row=2, column=0)
+    
+    # Only PT (admin) gets access to these features
+    if ACCESS == 'PT':
+        Button(win, text='New Event', padx=6, pady=10, command=GetEvent).grid(row=3, column=0)
+        Button(win, text='Edit Event', padx=6, pady=10, command=lambda: MainFrame('Edit')).grid(row=4, column=0)
+        Button(win, text='Update Event', padx=6, pady=10, command=lambda: MainFrame('Update')).grid(row=5, column=0)
+        Button(win, text='RESET ALL', padx=6, pady=10, command=ResetAll).grid(row=6, column=0)
 
 def CheckPassword(user):
     if password.get() == passwords[user]:
         ACCESS = user
         Start(mainWindow, ACCESS)
 
-b = Button(mainWindow, text='Go', padx=6, pady=10, command=lambda: CheckPassword(user.get())).pack()
+#b = Button(mainWindow, text='Go', padx=6, pady=10, command=lambda: CheckPassword(user.get())).grid()
 
 mainWindow.mainloop()
